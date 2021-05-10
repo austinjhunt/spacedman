@@ -1,0 +1,30 @@
+{% extends 'master.html' %} {% block content %}
+<div class="container-fluid bg-light text-center p-5">
+    <h1>Create a Question Template</h1>
+</div>
+<div class="container text-center">
+    <form method="post"></form>
+    <!-- no action, use JS to submit -->
+    {% csrf_token %} {{form.non_field_errors}}
+    <div class="form-group">
+        <label for="id_question_template">Subject Area</label> {{ form.subject_area }} {{ form.subject_area.errors }}
+    </div>
+    <div class="form-group">
+        <label for="id_question_template">Question Template</label> {{ form.question_template }} {{ form.question_template.errors }}
+    </div>
+    <div class="form-group">
+        <label for="id_answer_template">Answer Template</label> {{ form.answer_template }} {{ form.answer_template.errors }}
+    </div>
+    <div class="form-group">
+        <label for="id_code">Code</label> {{ form.code }}{{form.code.help_text}} {{ form.code.errors }}
+    </div>
+    <div class="form-group">
+        <label for="id_code_context">Code Context</label> {{ form.code_context }} {{ form.code_context.errors }}
+    </div>
+     
+    <input type="button" onclick="create_question()" value="Create Question Template" class="btn btn-md btn-primary m-4">
+    </form>
+</div>
+
+
+{% endblock %}

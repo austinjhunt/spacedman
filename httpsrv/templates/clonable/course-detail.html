@@ -1,0 +1,48 @@
+ <div class="card course mb-3">
+  <div class="card-header">  
+    <h4 class="float-left">{{course.course_title}}</h4>
+    {% if course.instructor.user == request.user %}
+        <div class="float-right btn btn-info mx-2">Your course</div>
+        <a class="float-right btn btn-dark mx-2" title="edit course {{course.id}}" href="/edit_course/{{course.id}}/"><i class="fa fa-md fa-edit"></i> Edit</a>
+    {% else %}
+        <div class="float-right btn btn-info mx-2">Instructor: {{ course.instructor.user.username }}</div>
+    {% endif %}
+    {% if not course.user_subscribed and user.is_authenticated %}
+        <button class="float-right btn btn-primary mx-2" title="subscribe to course" onclick="subscribe_to_course('{{course.id}}', 1)">Subscribe</button>
+    {% elif not user.is_authenticated %}  
+        <button class="float-right btn btn-primary mx-2" disabled>Subscribe (requires login)</button>
+    {% elif course.user_subscribed %}  
+        <button class="float-right btn btn-success mx-2" title="unsubscribe from course"  onclick="subscribe_to_course('{{course.id}}', 0)">
+        <i class="fa fa-check"></i> Subscribed</button>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    {% for question in course.questions.all %}
+        <h5 class="float-left">Question</h5>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">SUB</span>
+            </div>
+            <input disabled class="form-control" value="{{question.subject_area}}">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Q</span>
+            </div>
+            <input  disabled  class="form-control" value="{{question.question_template}}"> 
+            <div class="input-group-prepend">
+                <span class="input-group-text">A</span>
+            </div>
+            <input  disabled class="form-control" value="{{question.answer_template}}">  
+        </div>  
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Code</span>
+            </div>
+            <textarea class="form-control" disabled>{{question.code}}</textarea> 
+            <div class="input-group-prepend">
+                <span class="input-group-text">Code Context</span>
+            </div>
+            <textarea class="form-control" disabled>{{question.code_context}}</textarea>   
+        </div>  
+    {% endfor %}
+  </div>
+</div> 

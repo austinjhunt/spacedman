@@ -1,0 +1,41 @@
+{% extends 'master.html' %} 
+{% block content %} 
+{% include 'toasts/subscribed.html' %}
+{% if instructor %}
+<div class="container text-center"> 
+    <h1>All Courses</h1>
+    {% for course in all_courses %}
+    {% include 'clonable/course-detail.html' with course=course %}
+    {% endfor %} 
+</div>
+{% elif student %}  
+<div class="container my-5 py-5 text-center">
+    <div class="card text-center w-75" style="margin:0 auto;">
+        <div class="card-header">
+            <label>Search for a course or an instructor</label>
+            <input class="form-control rounded p-2" id="search-courses-input" placeholder="Search...">
+        </div> 
+        <div class="card-body text-left"> 
+            <h4 class="card-title">Courses</h4>
+            <div id="course_list" class="container-fluid p-3">  
+                {% for course in all_courses %} 
+                <div class="alert alert-primary p-1 available-course row">
+                    <div class="col-sm-6 text-left">
+                        <p class="my-2">{{course.course_title }}</p>
+                        <p class="my-2">Instructor: {{course.instructor.user.username}}</p>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        {% if course.user_subscribed %}  
+                        <button class="btn btn-md btn-danger" onclick="subscribe_to_course('{{course.id}}', 0)">Unjoin</button>
+                        {% else %} 
+                        <button class="btn btn-md btn-success" onclick="subscribe_to_course('{{course.id}}', 1)">Join</button>
+                        {% endif %}
+                    </div>
+                </div> 
+                {% endfor %} 
+            </div>
+        </div> 
+    </div>
+</div>
+{% endif %} 
+{% endblock %}

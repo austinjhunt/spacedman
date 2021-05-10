@@ -1,0 +1,16 @@
+{% extends 'master.html' %}
+ {% block content %}
+<div class="container-fluid bg-light text-center p-5">
+<p>click a subject to show related questions</p>
+{% for s, qlist in subjects.items %}
+<button class="btn btn-lg btn-primary m-2 rounded" onclick="show_questions('{{s}}')">{{s}}</button>
+<div>
+<p class="info-{{s}}" style="display:none">click a question template to generate example question instances</p>
+{% for q in qlist %} 
+<button class="btn btn-md btn-secondary m-2 question-button subject-{{q.subject_area}}" style="display:none" onclick="render_instances_instructor({{q.id}}, this)">{{q.question_template}}</button>
+{% endfor %}
+</div>
+{% endfor %} 
+</div> 
+ 
+{% endblock %}

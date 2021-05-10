@@ -1,0 +1,59 @@
+{% extends 'master.html' %} {% block content %}
+<div class="container py-5 my-5">   
+    <div class="card">
+        <div class="card-body text-center">
+            <div class="card-title">Create a spacEd Account</div>
+            <div class="col-sm-12 login-form">
+                <div class="col-sm-12 login-form">
+                    <form method="post" action="{% url 'signup' %}" class="text-center">
+                        {% csrf_token %} {{ form.non_field_errors }}
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Account Type</div>
+                            </div>
+                            {{ form.account_type }}  
+                            {% if form.account_type.errors %}
+                            <p class="text-danger">{{ form.account_type.errors }}</p>
+                            {% endif %} 
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Username</div>
+                            </div>
+                            {{ form.username }}  
+                            {% if form.username.errors %}
+                            <p class="text-danger">{{ form.username.errors }}</p>
+                            {% endif %} 
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Password</div> 
+                            </div>
+                            {{ form.password1 }} 
+                            {% if form.password1.errors %}
+                            <p class="text-danger">{{ form.password1.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Confirm password</div>
+                            </div>
+                            {{ form.password2 }} 
+                            {% if form.password2.errors %}
+                            <p class="text-danger">{{ form.password2.errors }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-sm-12 loginbtn"> 
+                            <div class="col-sm-12 login-btn login-button text-center">
+                                <button type="submit" value="signup" class="btn text-uppercase btn-outline-primary">Sign Up</button> 
+                                <input type="hidden" name="next" value="{{ next }}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+    {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'master.html' %} {% block content %}
+
+<div class="container py-5 text-center">
+    <div class="card   text-left shadow">
+        <div class="card-header">
+            <h1>Welcome to SpacEd (pronounced: "space ed")</h1>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">What is this?</h5>
+            <p class="card-text">SpacEd is a novel
+                <a class="text-danger" href="https://learningsolutionsmag.com/articles/designs-that-work-spaced-learning" title="spaced repetition learning">
+                    <b>spaced learning</b>
+                </a> platform.</p>
+            <p class="card-text">
+                For <b>learners</b>, we offer a method of learning that allows you to exercise your long term memory of material you're interested in.
+            </p>
+            <p class="card-text">
+                For <b>instructors</b>, we offer an intelligent framework allowing you to create courses composed of question/answer <b>templates</b>, which SpacEd uses to generate specific instances of question/answer pairs.
+            </p>
+            <p class="card-text">
+                When a learner <b>joins</b> one of your courses, they'll be asked one instance of each of your course's question templates.
+            </p>
+            <p class="card-text">
+                From that point, each question template has a <b>stateful relationship</b> with that learner, and that relationship is defined by <b>two</b> important values: a <b>remaining</b> value and an <b>increment</b> value.
+            </p>
+            <p class="card-text ">
+                The <b>remaining</b> value (an integer, like 0, 1, or 2), indicates how many {{base_unit}} are left until the learner is asked another instance of this question template. When this number reaches <b>0</b>, the learner gets a notification
+                that they have questions ready to be answered.
+            </p>
+            <p class="card-text ">
+                The <b>increment</b> value, also an integer, defines by how much the <b>remaining</b> value is increased whenever the learner answers a question correctly. This value can also be called the <b>re-exposure delay</b>, because it determines
+                what the delay should be between two prompts from the same question template.
+            </p>
+            <p>
+                The general pattern is, wrong answers trigger a shorter re-exposure delay while correct answers trigger longer re-exposure delays. If you understand something, the system aims to push your memory of that material farther until it identifies a point where
+                you forget the answer.
+            </p>
+            <p>When an instance of a question template is answered correctly by the learner, the
+                <b>remaining</b> value gets incremented by <b>increment</b>, and <b>increment</b> increases by a value calculated dynamically by SpacEd using data from other learner-template relationships. The goal in this calculation is to identify and
+                converge upon the <b>optimal re-exposure delay</b> for a given question template, and perhaps to derive similar insight about their parent subject areas.
+            </p>
+            {% if request.user.is_authenticated %}
+            <a href="/courses" class="btn btn-primary">View Courses</a> {% else %}
+            <a href="/accounts/login/" class="btn btn-primary">Log In to View Courses</a> {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

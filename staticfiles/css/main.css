@@ -1,0 +1,82 @@
+/* Brand */
+
+.spacedbrand {
+    background-color: #212529;
+    font-family: Galvji;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+textarea {
+    min-height: 200px;
+}
+
+input:disabled,
+textarea:disabled {
+    background-color: aliceblue !important;
+}
+
+.spacedbrand>span {
+    margin: 0;
+}
+
+.spacedbrand>span:nth-child(1) {
+    color: rgb(255, 123, 0);
+}
+
+.spacedbrand>span:nth-child(2) {
+    color: rgb(0, 158, 231);
+}
+
+
+/* courses */
+
+.available-course:hover {
+    cursor: pointer;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+    85% {
+        transform: rotate(5deg);
+    }
+    95% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.wiggle {
+    display: inline-block;
+    animation: wiggle 1s infinite;
+}
+
+.wiggle:hover {
+    animation: none;
+}
+
+body {
+    background: linear-gradient(-45deg, #688E26, #0B0014, #F2A541, #B75D69, #320A28);
+    background-size: 400% 400%;
+    animation: gradient 60s ease infinite;
+    font-family: Galvji;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

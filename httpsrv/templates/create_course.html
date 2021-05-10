@@ -1,0 +1,56 @@
+{% extends 'master.html' %} {% block content %} {% include 'modals/create_question.html' with form=create_question_form %} {% include 'clonable/course_question.html' with form=create_question_form %}
+<div class="container text-center p-4">
+        {% if course %}
+        <form action='/edit_course/{{course.id}}/' method='post'>
+            {% csrf_token %}
+            <h2>Edit Course</h2>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" id="course-title-label">Course Title</div>
+                </div>
+                <input type="text" class="form-control" required value="{{course.course_title}}" name="course-title" placeholder="Course Title" aria-label="Course Title" aria-describedby="course-title-label"> 
+            </div>
+            <div class="text-right">
+            <button type="button" class="btn btn-success btn-md" onclick="show_add_question_modal()"><i class="fa fa-plus "></i> Add Question Template</button>
+            </div>
+            <div id="course_questions">
+                {% for q in course.questions.all %}
+                    {% include 'clonable/course_question.html' with question=q already_saved=True saved_question_index=forloop.counter %}
+                {% endfor %}
+            </div>
+            <div class="text-center my-3 ">
+                <button type="submit" class="btn btn-primary btn-md">
+                Save Course
+                </button>
+            </div>
+        </form>
+        {% else %} 
+        <form action="/create_course/" method="post">
+            {% csrf_token %}
+            <div class="card shadow text-left mt-4">
+                <div class="card-header">
+                    Create a Course
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3"> 
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" id="course-title-label">Course Title</div>
+                        </div>
+                        <input type="text" class="form-control" required name="course-title" placeholder="Course Title" aria-label="Course Title" aria-describedby="course-title-label"> 
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-md">Create Course</button>
+                    </div> 
+                </div>
+            </div> 
+        </form>
+
+        {% endif %} 
+
+
+        
+
+        
+    </form>
+</div>
+{% endblock %}

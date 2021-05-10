@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="SpacEd: A Novel Spaced E-Learning Platform">
+    <meta property="og:description" content="A research-driven spaced learning web platform bundling the convenience of question templating with the edge of data-driven support for active learning">
+    <meta property="og:image" content="https://fie2021-spaced-repetition.herokuapp.com/static/images/spacedlogo.png">
+
+    <meta name="keywords" content="FIE,2021,FIE2021,spaced,repetition">
+    <meta name="description" content="Spaced repetition platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link href="/static/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        CREATE_QUESTION_ENDPOINT = "{{CREATE_QUESTION_ENDPOINT}}";
+        RENDER_QUESTION_ENDPOINT = "{{RENDER_QUESTION_ENDPOINT}}";
+        CHECK_ANSWER_ENDPOINT = "{{CHECK_ANSWER_ENDPOINT}}";
+        GET_ANSWER_ENDPOINT = "{{GET_ANSWER_ENDPOINT}}";
+        AKREAD = "{{AKREAD}}";
+        AKCUD = "{{AKCUD}}";
+        CSRFTOKEN = "{{csrf_token}}";
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="btn button btn-outline-light spacedbrand" href="/">
+            <span>Spac</span><span>Ed</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                {% if subscribed_courses %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if has_active_questions and title != 'Practice' %} btn btn-outline-warning btn-warning wiggle text-dark {% endif %}" href="#" id="subscriptionsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Practice
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="subscriptionsDropdown">
+                        {% for course in subscribed_courses %}
+                        <a class="dropdown-item {% if course.active %} text-warning bg-dark wiggle {% endif %}" href="/practice/{{course.id}}">{{course.course_title}}</a> {% endfor %}
+                    </div>
+                </li>
+                {% endif %} 
+                {% if instructor %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="teachDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Teach
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="teachDropdown">
+                        <a class="dropdown-item" title="create a course" href="/create_course">Create Course</a>
+                        <a class="dropdown-item" title="all questions" href="/questions">Preview</a>
+                    </div>
+                </li>
+                {% endif %}  
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-lg fa-user-circle"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                    {% if user.is_authenticated %}
+                        <a class="dropdown-item" disabled>{{user.username}} | {% if instructor %} Instructor {% else %} Student {% endif %}</a>
+                        <a class="dropdown-item" title="all questions" href="/courses">Courses</a>
+                        <a class="dropdown-item"  href="/accounts/logout?next=/" title="Log out">Log Out</a>
+                    {% else %}
+                        <a class="dropdown-item" title="log in" href="/accounts/login/">Log In</a>
+                        <a class="dropdown-item" title="sign up" href="/accounts/signup/">Sign Up</a>
+                    {% endif %}
+                    </div>
+                </li> 
+
+            </ul>
+        </div>
+    </nav>
+    <div class="inner-body">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+<footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/static/js/spaced.js"></script>
+</footer>
+
+</html>

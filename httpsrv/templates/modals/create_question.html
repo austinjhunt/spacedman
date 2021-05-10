@@ -1,0 +1,35 @@
+<div class="modal fade" id="create_question_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Question Template</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- no action, add result to create course form -->
+        {{form.non_field_errors}}
+        <div class="form-group">
+            <label for="id_question_template">Subject Area</label> {{ form.subject_area }} {{ form.subject_area.errors }}
+        </div>
+        <div class="form-group">
+            <label for="id_question_template">Question Template</label> {{ form.question_template }} {{ form.question_template.errors }}
+        </div>
+        <div class="form-group">
+            <label for="id_answer_template">Answer Template</label> {{ form.answer_template }} {{ form.answer_template.errors }}
+        </div>
+        <div class="form-group">
+            <label for="id_code">Code</label> {{ form.code }}{{form.code.help_text}} {{ form.code.errors }}
+        </div>
+        <div class="form-group">
+            <label for="id_code_context">Code Context</label> {{ form.code_context }} {{ form.code_context.errors }}
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="add_question_template_to_course()" class="btn btn-primary"><i class='fa fa-plus'></i> Add Question to Course</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

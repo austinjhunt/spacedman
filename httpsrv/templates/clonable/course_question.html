@@ -1,0 +1,79 @@
+
+<!-- if already_saved, created with template inclusion; else, created with JS -->
+<div class="bg-secondary p-3 rounded my-2 {% if already_saved %} course_question_input {% else %} d-none {% endif %}" 
+{% if already_saved %} id="course-question-{{saved_question_index}}" {% else %} id="clonable-question-input" {% endif %}>
+    <div class="question-buttons text-right">
+        <p class="my-2 text-light float-left">Question Template <span class="clonable-question-index">
+        {% if already_saved %}
+        {{saved_question_index}}
+        {% else %}
+        i 
+        {% endif %}
+        </span></p>
+        <button type="button" class="btn btn-danger clonable-remove-question-button my-2"
+        {% if already_saved %}
+        onclick='$("#course-question-{{saved_question_index}}").remove()'
+        {% endif %}
+        ><i class="fa fa-trash"></i> Remove Question</button>
+    </div>
+    <!-- to serve as indicator of question existence , name set by js on clone -->
+    <input type="hidden" class="clonable-hidden-question-index-input" 
+        {% if already_saved %}
+            name="hidden-question-index-{{saved_question_index}}"
+            value="{{saved_question_index}}"
+        {% endif %}
+    >
+    <div class="input-group mb-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Subject</span>
+        </div>
+        <input type="text" class="form-control clonable-subject-area-input" 
+        {% if already_saved %}
+            name="question-{{saved_question_index}}-subject-area"
+            value="{{question.subject_area}}"
+        {% endif %}
+        >
+    </div>
+    <div class="input-group mb-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Question Template</span>
+        </div>
+        <input type="text" class="form-control clonable-question-template-input" 
+        {% if already_saved %}
+            name="question-{{saved_question_index}}-question-template"
+            value="{{question.question_template}}"
+        {% endif %}
+        >
+    </div>
+    <div class="input-group mb-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Answer Template</span>
+        </div>
+        <input type="text" class="form-control clonable-answer-template-input"
+        {% if already_saved %}
+            name="question-{{saved_question_index}}-answer-template"
+            value="{{question.answer_template}}"
+        {% endif %}
+        >
+    </div>
+    <div class="input-group mb-1 ">
+        <div class="input-group-prepend ">
+            <span class="input-group-text ">Code</span>
+        </div>
+        <textarea class="form-control clonable-code-input"
+        {% if already_saved %}
+            name="question-{{saved_question_index}}-code" 
+        {% endif %}
+        >{% if already_saved %}{{question.code}}{% endif %}</textarea>
+    </div>
+    <div class="input-group ">
+        <div class="input-group-prepend ">
+            <span class="input-group-text ">Code Context</span>
+        </div>
+        <textarea class="form-control clonable-code-context-input"
+        {% if already_saved %}
+            name="question-{{saved_question_index}}-code-context" 
+        {% endif %}
+        >{% if already_saved %}{{question.code_context}}{% endif %}</textarea>
+    </div>
+</div>
